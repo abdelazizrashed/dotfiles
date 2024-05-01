@@ -1,0 +1,11 @@
+alias test="echo \"bash working\""
+alias python=python3
+alias pip=pip3
+alias py=python3
+
+
+alias ff=.fvm/flutter_sdk/bin/flutter
+alias workdir="cd /Users/aziz/Documents/work/projects/"
+
+
+alias gendata="py ./fluttergen/main.py"
