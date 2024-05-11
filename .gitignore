@@ -1,2 +1,8 @@
 flutter/
 gh/
+filezilla/
+gtk-2.0/
+
+# pychache
+
+__pycache__/

@@ -8,4 +8,4 @@ alias ff=.fvm/flutter_sdk/bin/flutter
 alias workdir="cd /Users/aziz/Documents/work/projects/"
 
 
-alias gendata="py ./fluttergen/main.py"
+alias gendata="py ~/.config/cmd/fluttergen/main.py"
