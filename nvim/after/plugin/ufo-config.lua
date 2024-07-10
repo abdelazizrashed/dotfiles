@@ -1,0 +1,48 @@
+-- vim.o.foldcolumn = '1'
+-- vim.o.foldlevel = 99
+-- vim.o.foldlevelstart = 99
+-- vim.o.foldenable = true
+--
+--
+-- local ftMap = {
+--     vim = 'indent',
+--     python = { 'indent' },
+--     git = ''
+-- }
+-- require('ufo').setup({
+--     open_fold_hl_timeout = 150,
+--     close_fold_kinds_for_ft = {
+--         default = { 'imports', 'comment' },
+--         json = { 'array' },
+--         c = { 'comment', 'region' }
+--     },
+--     preview = {
+--         win_config = {
+--             border = { '', '─', '', '', '', '─', '', '' },
+--             winhighlight = 'Normal:Folded',
+--             winblend = 0
+--         },
+--         mappings = {
+--             scrollU = '<C-u>',
+--             scrollD = '<C-d>',
+--             jumpTop = '[',
+--             jumpBot = ']'
+--         }
+--     },
+--     provider_selector = function(bufnr, filetype)
+--         return ftMap[filetype] or { 'treesitter', 'indent' }
+--     end
+-- })
+-- vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+-- vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+-- vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+-- vim.keymap.set('n', 'zm', function()
+--     require('ufo').closeFoldsWith(2);
+-- end)
+-- vim.keymap.set('n', 'K', function()
+--     local winid = require('ufo').peekFoldedLinesUnderCursor()
+--     if not winid then
+--         vim.fn.CocActionAsync('definitionHover')
+--         vim.lsp.buf.hover()
+--     end
+-- end)

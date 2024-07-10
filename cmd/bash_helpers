@@ -9,3 +9,5 @@ alias workdir="cd /Users/aziz/Documents/work/projects/"
 
 
 alias gendata="py ~/.config/cmd/fluttergen/main.py"
+
+
