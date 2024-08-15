@@ -5,6 +5,11 @@ vim.keymap.set("n", "<leader>sv", vim.cmd.w)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+
+vim.keymap.set("n", "<leader>la", ":Laravel artisan<cr>")
+vim.keymap.set("n", "<leader>lr", ":Laravel routes<cr>")
+vim.keymap.set("n", "<leader>lm", ":Laravel related<cr>")
+
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
