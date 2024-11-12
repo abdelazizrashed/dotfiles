@@ -1,6 +1,6 @@
 require 'nvim-treesitter.configs'.setup {
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "rust", "javascript", "typescript", "python" },
+    ensure_installed = { "c", "lua", "vim", "vimdoc", "luadoc", "markdown", "query", "rust", "javascript", "typescript", "python", "groovy" },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -23,5 +23,17 @@ require 'nvim-treesitter.configs'.setup {
         enable_rename = true,
         enable_close = true,
         enable_close_on_slash = true,
-    }
+    },
+    context_commentstring = {
+        config = {
+            javascript = {
+                __default = '// %s',
+                jsx_element = '{/* %s */}',
+                jsx_fragment = '{/* %s */}',
+                jsx_attribute = '// %s',
+                comment = '// %s',
+            },
+            typescript = { __default = '// %s', __multiline = '/* %s */' },
+        },
+    },
 }

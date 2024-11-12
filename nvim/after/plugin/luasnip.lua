@@ -30,12 +30,19 @@ local i = ls.insert_node
 ls.filetype_extend("javascript", { "javascriptreact" })
 ls.filetype_extend("javascript", { "html" })
 
+local function get_current_date()
+    return os.date("%Y/%m/%d")
+end
+
 ls.add_snippets("all", {
     s("todo", {
         t("// TODO (abdelaziz): "), i(1, "todo"),
     }),
+    -- s("sign", {
+    --     t("// Auther: Abdelaziz Rashed @ 2024/"), i(1, "m"), t("/"), i(2, "d"),
+    -- }),
     s("sign", {
-        t("// Auther: Abdelaziz Rashed @ 2023/"), i(1, "m"), t("/"), i(2, "d"),
+        t("// Author: Abdelaziz Rashed @ "), t(get_current_date()),
     }),
     ls.parser.parse_snippet({ trig = "lsp" },
         "class ${1:name}Loading extends ${1:name}State {}"),

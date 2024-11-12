@@ -3,7 +3,6 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-    'tsserver',
     'rust_analyzer',
     "gopls",
 })
@@ -37,7 +36,7 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         --   { nme = 'vsnip' }, -- For vsnip users.
-        { name = 'luasnip',  option = { show_autosnippets = true } }, -- For luasnip users.
+        { name = 'luasnip', option = { show_autosnippets = true } }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
     }, {
@@ -84,4 +83,3 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true
 })
-

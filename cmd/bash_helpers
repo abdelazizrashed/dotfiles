@@ -15,7 +15,12 @@ alias workdir="cd /Users/aziz/Documents/work/projects/"
 
 alias gendata="py ~/.config/cmd/fluttergen/main.py"
 
-export GOBIN=$HOME/go/bin
+# export GOBIN=$HOME/go/bin
+#
+alias emulator="~/Library/Android/sdk/emulator/emulator"
+
+# Alias for FVM for running flutter command
+alias ff="fvm flutter"
 
 
 
