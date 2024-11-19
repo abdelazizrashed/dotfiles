@@ -5,6 +5,7 @@ lsp.preset("recommended")
 lsp.ensure_installed({
     'rust_analyzer',
     "gopls",
+    "ruby_lsp"
 })
 
 
@@ -82,4 +83,15 @@ lsp.setup()
 
 vim.diagnostic.config({
     virtual_text = true
+})
+
+
+vim.filetype.add({
+    filename = {
+        ["Fastfile"] = "ruby",
+        ["Gemfile"] = "ruby",
+        ["Appfile"] = "ruby",
+        ["Podfile"] = "ruby",
+        ["Pluginfile"] = "ruby",
+    }
 })

@@ -30,6 +30,21 @@ local i = ls.insert_node
 ls.filetype_extend("javascript", { "javascriptreact" })
 ls.filetype_extend("javascript", { "html" })
 
+
+-- Keybinding for jumping forward in a snippet with <C-Tab>
+vim.keymap.set({ "i", "s" }, "<C-s>", function()
+    if ls.jumpable(1) then
+        ls.jump(1)
+    end
+end, { silent = true })
+
+-- Keybinding for jumping backward in a snippet with <C-S-Tab> (Control + Shift + Tab)
+vim.keymap.set({ "i", "s" }, "<C-S-s>", function()
+    if ls.jumpable(-1) then
+        ls.jump(-1)
+    end
+end, { silent = true })
+
 local function get_current_date()
     return os.date("%Y/%m/%d")
 end
@@ -83,6 +98,30 @@ class ${1:name}Bloc extends Bloc<${1:name}Event, ${1:name}State> {
 }
         ]]
     ),
+ls.parser.parse_snippet({trig = "platview"},
+    [[
+import 'package:flutter/material.dart';
+
+class ${1:name}Screen extends StatelessWidget {
+  static const routeName = "/${2:lower_name}";
+
+  static final route = ModuleRoute(
+    routeName: routeName,
+    builder: (_, __) => const ${1:name}Screen(),
+  );
+  const ${1:name}Screen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("${1:name}Screen"),
+      ),
+    );
+  }
+}
+        
+    ]]),
     ls.parser.parse_snippet({ trig = "blocprovide" },
         [[
 BlocProvider(
@@ -94,7 +133,7 @@ BlocProvider(
     ),
     ls.parser.parse_snippet({ trig = "blocstate" },
         [[
-part of '';
+part of '${2:lower_name}_bloc.dart';
 
 abstract class ${1:name}State extends Equatable {
   const ${1:name}State();
@@ -137,7 +176,7 @@ class ${1:name}NetworkConnectionError extends ${1:name}State {
     ),
     ls.parser.parse_snippet({ trig = "blocevent" },
         [[
-part of '';
+part of '${2:lower_name}_bloc.dart';
 
 abstract class ${1:name}Event extends Equatable {
   const ${1:name}Event();
@@ -151,7 +190,7 @@ abstract class ${1:name}Event extends Equatable {
     ls.parser.parse_snippet({ trig = "blocstatesuccess" },
         [[
 
-part of '';
+part of '${2:lower_name}_bloc.dart';
 
 abstract class ${1:name}State extends Equatable {
   const ${1:name}State();
@@ -212,6 +251,98 @@ class ${1:repo}RepositoryImpl implements ${1:repo}Repository{}
 RepositoryProvider(create: (_) => ${1:name}Repository.create()),
         ]]
     ),
+    ls.parser.parse_snippet({
+        trig = "nblocinitrepo",
+        dscr = "Creates a Bloc class with repository",
+    }, [[
+
+part '${2:lower_name}_state.dart';
+part '${2:lower_name}_event.dart';
+
+class ${1:name}Bloc extends Bloc<${1:name}Event, ${1:name}State> {
+    static final dependency = BlocDependency<${1:name}Bloc>(
+    factory: () => ${1:name}Bloc(),
+    );
+
+    /// Get instance of [${1:name}Bloc] using ServiceLocator
+    static ${1:name}Bloc get instance => dependency.get();
+
+    /// Alias for [${1:name}Bloc.instance]
+    /// Get instance of [${1:name}Bloc] using ServiceLocator
+    static ${1:name}Bloc get i => dependency.get();
+
+    /// Get instance of [${1:name}Bloc] using InheritedWidget
+    static ${1:name}Bloc of(BuildContext context) =>
+      BlocProvider.of<${1:name}Bloc>(context);
+
+    final ${1:name}Repository _repository;
+
+    ${1:name}Bloc({
+      required ${1:name}Repository repository,
+    })  : _repository = repository,
+          super(${1:name}Initial()) {
+      on<${3:event}>(_on${3:event});
+    }
+}
+]]),
+    ls.parser.parse_snippet({ trig = "singleton" }, [[
+  static ${1:name}? _instance;
+  static ${1:name} get instance => _instance ??= ${1:name}._();
+  static ${1:name} get i => _instance ??= ${1:name}._();
+
+  ${1:name}._();
+
+]]),
+    ls.parser.parse_snippet({ trig = "dataclass" }, [[
+import 'package:json_annotation/json_annotation.dart';
+
+part '${2:lower_name}.g.dart';
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ${1:name} {
+  ${3:fields}
+
+  ${1:name}({
+  });
+
+  factory ${1:name}.fromJson(Map<String, dynamic> json) =>
+      _$${1:name}FromJson(json);
+
+  Map<String, dynamic> toJson() => _$${1:name}ToJson(this);
+}
+
+]]),
+    ls.parser.parse_snippet({
+            trig = "nblocinit",
+            dscr = "Creates a Bloc class without repository",
+        },
+        [[
+
+part '${2:lower_name}_state.dart';
+part '${2:lower_name}_event.dart';
+
+class ${1:name}Bloc extends Bloc<${1:name}Event, ${1:name}State> {
+    static final dependency = BlocDependency<${1:name}Bloc>(
+    factory: () => ${1:name}Bloc(),
+    );
+
+    /// Get instance of [${1:name}Bloc] using ServiceLocator
+    static ${1:name}Bloc get instance => dependency.get();
+
+    /// Alias for [${1:name}Bloc.instance]
+    /// Get instance of [${1:name}Bloc] using ServiceLocator
+    static ${1:name}Bloc get i => dependency.get();
+
+    /// Get instance of [${1:name}Bloc] using InheritedWidget
+    static ${1:name}Bloc of(BuildContext context) =>
+      BlocProvider.of<${1:name}Bloc>(context);
+
+
+    ${1:name}Bloc(): super(${1:name}Initial()) {
+      on<${3:event}>(_on${3:event});
+    }
+}
+]])
     -- ls.parser.parse_snippet({ trig = "" },
     --     [[
     --
